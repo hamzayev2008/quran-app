@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createSession } from "@/lib/auth-session";
 import { getQuranFoundationConfig } from "@/lib/quran-foundation";
 
 export async function GET(request: NextRequest) {
@@ -10,10 +11,7 @@ export async function GET(request: NextRequest) {
 
   if (error) {
     return NextResponse.json(
-      {
-        error: "Quran Foundation authorization failed",
-        details: error,
-      },
+      { error: "Quran Foundation authorization failed" },
       { status: 400 }
     );
   }
@@ -69,10 +67,6 @@ export async function GET(request: NextRequest) {
   );
 
   if (!tokenResponse.ok) {
-    const errorText = await tokenResponse.text();
-
-    console.error("Quran Foundation token exchange failed:", errorText);
-
     return NextResponse.json(
       { error: "Failed to exchange authorization code" },
       { status: 502 }
@@ -81,21 +75,38 @@ export async function GET(request: NextRequest) {
 
   const tokens = await tokenResponse.json();
 
-  if (!tokens.access_token) {
+  if (!tokens.access_token || !tokens.id_token) {
     return NextResponse.json(
-      { error: "Access token was not returned" },
+      { error: "Required authentication tokens were not returned" },
       { status: 502 }
     );
   }
 
-  return NextResponse.json({
+  /*
+   * Пока мы используем данные из ID token только
+   * после получения его от Quran Foundation.
+   *
+   * Полную криптографическую проверку ID token
+   * сделаем следующим шагом.
+   */
+
+  const sessionToken = await createSession({
+    sub: "quran-foundation-user",
+  });
+
+  const response = NextResponse.json({
     success: true,
     message: "Quran Foundation authentication successful",
-    environment: process.env.QF_ENV || "prelive",
     authenticated: true,
-    tokenReceived: true,
-    expiresIn: tokens.expires_in ?? null,
-    refreshTokenReceived: Boolean(tokens.refresh_token),
-    idTokenReceived: Boolean(tokens.id_token),
   });
+
+  response.cookies.set("qf_session", sessionToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: 7 * 24 * 60 * 60,
+  });
+
+  return response;
 }
