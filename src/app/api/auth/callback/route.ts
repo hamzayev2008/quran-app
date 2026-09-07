@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSession } from "@/lib/auth-session";
 import { getQuranFoundationConfig } from "@/lib/quran-foundation";
+import { verifyQuranFoundationIdToken } from "@/lib/quran-foundation-oidc";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -24,11 +25,19 @@ export async function GET(request: NextRequest) {
   }
 
   const savedState = request.cookies.get("qf_state")?.value;
+  const savedNonce = request.cookies.get("qf_nonce")?.value;
   const codeVerifier = request.cookies.get("qf_code_verifier")?.value;
 
   if (!state || !savedState || state !== savedState) {
     return NextResponse.json(
       { error: "Invalid OAuth state" },
+      { status: 400 }
+    );
+  }
+
+  if (!savedNonce) {
+    return NextResponse.json(
+      { error: "OAuth nonce is missing" },
       { status: 400 }
     );
   }
@@ -82,16 +91,28 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  /*
-   * Пока мы используем данные из ID token только
-   * после получения его от Quran Foundation.
-   *
-   * Полную криптографическую проверку ID token
-   * сделаем следующим шагом.
-   */
+  let idToken;
+
+  try {
+    idToken = await verifyQuranFoundationIdToken(
+      tokens.id_token,
+      savedNonce
+    );
+  } catch {
+    return NextResponse.json(
+      { error: "Invalid Quran Foundation ID token" },
+      { status: 401 }
+    );
+  }
 
   const sessionToken = await createSession({
-    sub: "quran-foundation-user",
+    sub: String(idToken.sub),
+    email: idToken.email
+      ? String(idToken.email)
+      : undefined,
+    name: idToken.name
+      ? String(idToken.name)
+      : undefined,
   });
 
   const response = NextResponse.json({
@@ -106,6 +127,30 @@ export async function GET(request: NextRequest) {
     sameSite: "lax",
     path: "/",
     maxAge: 7 * 24 * 60 * 60,
+  });
+
+  response.cookies.set("qf_state", "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: 0,
+  });
+
+  response.cookies.set("qf_nonce", "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: 0,
+  });
+
+  response.cookies.set("qf_code_verifier", "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: 0,
   });
 
   return response;
