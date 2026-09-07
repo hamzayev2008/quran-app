@@ -115,11 +115,9 @@ export async function GET(request: NextRequest) {
       : undefined,
   });
 
-  const response = NextResponse.json({
-    success: true,
-    message: "Quran Foundation authentication successful",
-    authenticated: true,
-  });
+  const response = NextResponse.redirect(
+    new URL("/", request.url)
+  );
 
   response.cookies.set("qf_session", sessionToken, {
     httpOnly: true,
