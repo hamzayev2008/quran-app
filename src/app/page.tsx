@@ -277,115 +277,23 @@ export default function Home() {
       <Header />
       
       <main className="relative mx-auto min-h-[calc(100vh-92px)] max-w-[1536px] overflow-hidden bg-[#fcfbf7] dark:bg-[#062f29]">
-        {/* Main background gradients */}
-        <div className="pointer-events-none absolute inset-0">
-          {/* light mode */}
-          <div
-            className="absolute inset-0 dark:hidden"
-            style={{
-              background:
-                "linear-gradient(180deg, #fffdfa 0%, #f7f4ec 45%, #f1ede2 100%)",
-            }}
-          />
+        {/* Светлый фон */}
+<div
+  aria-hidden="true"
+  className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat dark:hidden"
+  style={{
+    backgroundImage: "url('/quran-light-bg.png')",
+  }}
+/>
 
-          {/* dark mode */}
-          <div
-            className="absolute inset-0 hidden dark:block"
-            style={{
-              background:
-                "linear-gradient(180deg, #052b25 0%, #06352e 38%, #04231e 100%)",
-            }}
-          />
-
-          {/* soft top glow */}
-          <div className="absolute left-1/2 top-[-80px] h-[240px] w-[520px] -translate-x-1/2 rounded-full bg-white/60 blur-3xl dark:bg-[#0f5a46]/25" />
-
-          {/* right glow */}
-          <div className="absolute right-[6%] top-[120px] h-[260px] w-[260px] rounded-full bg-[#dce9db]/70 blur-3xl dark:bg-[#0d5c47]/25" />
-
-          {/* left glow */}
-          <div className="absolute left-[10%] top-[120px] h-[220px] w-[220px] rounded-full bg-[#f4e6c8]/35 blur-3xl dark:bg-[#c79b46]/10" />
-        </div>
-
-        {/* Side islamic pattern */}
-        <div
-          className="pointer-events-none absolute inset-y-0 left-0 w-[78px] opacity-40 dark:hidden"
-          style={{
-            backgroundImage:
-              "linear-gradient(45deg, transparent 44%, #dde4db 45%, #dde4db 55%, transparent 56%), linear-gradient(-45deg, transparent 44%, #dde4db 45%, #dde4db 55%, transparent 56%)",
-            backgroundSize: "28px 28px",
-          }}
-        />
-        <div
-          className="pointer-events-none absolute inset-y-0 right-0 w-[78px] opacity-40 dark:hidden"
-          style={{
-            backgroundImage:
-              "linear-gradient(45deg, transparent 44%, #dde4db 45%, #dde4db 55%, transparent 56%), linear-gradient(-45deg, transparent 44%, #dde4db 45%, #dde4db 55%, transparent 56%)",
-            backgroundSize: "28px 28px",
-          }}
-        />
-
-        <div
-          className="pointer-events-none absolute inset-y-0 left-0 hidden w-[78px] opacity-25 dark:block"
-          style={{
-            backgroundImage:
-              "linear-gradient(45deg, transparent 44%, #1c5a4b 45%, #1c5a4b 55%, transparent 56%), linear-gradient(-45deg, transparent 44%, #1c5a4b 45%, #1c5a4b 55%, transparent 56%)",
-            backgroundSize: "28px 28px",
-          }}
-        />
-        <div
-          className="pointer-events-none absolute inset-y-0 right-0 hidden w-[78px] opacity-25 dark:block"
-          style={{
-            backgroundImage:
-              "linear-gradient(45deg, transparent 44%, #1c5a4b 45%, #1c5a4b 55%, transparent 56%), linear-gradient(-45deg, transparent 44%, #1c5a4b 45%, #1c5a4b 55%, transparent 56%)",
-            backgroundSize: "28px 28px",
-          }}
-        />
-
-        {/* Decorative arch at top-left */}
-        <div className="pointer-events-none absolute -left-[55px] -top-[110px] h-[360px] w-[360px] rounded-full border border-[#ddd9cc] opacity-80 dark:border-[#3d6055]" />
-        <div className="pointer-events-none absolute left-[35px] top-[30px] h-[210px] w-[210px] rounded-full border border-[#e8e3d8] opacity-60 dark:border-[#28483f]" />
-
-        {/* Mosque silhouette - better placement */}
-        <div className="pointer-events-none absolute bottom-[122px] left-[88px] h-[235px] w-[650px] text-[#d8ddd7] opacity-90 dark:text-[#031d19] dark:opacity-95">
-          <Mosque />
-        </div>
-
-        {/* Foreground mist / hills */}
-        <div className="pointer-events-none absolute bottom-[78px] left-[30px] h-[120px] w-[42%] rounded-[50%] bg-white/55 blur-2xl dark:bg-[#08241f]/85" />
-        <div className="pointer-events-none absolute bottom-[70px] left-[28%] h-[120px] w-[35%] rounded-[50%] bg-[#eef1eb]/85 blur-2xl dark:bg-[#0a2a24]/80" />
-        <div className="pointer-events-none absolute bottom-[70px] right-[5%] h-[140px] w-[36%] rounded-[50%] bg-[#ecefe9]/90 blur-2xl dark:bg-[#0a342d]/70" />
-
-        {/* subtle bird silhouettes */}
-        <div className="pointer-events-none absolute right-[16%] top-[145px] text-[#c9cec7] dark:text-[#31544a]">
-          <div className="text-2xl tracking-[10px]">︵ ︵ ︵</div>
-        </div>
-
-        {/* Lanterns */}
-        <div className="pointer-events-none absolute left-[145px] top-[18px] text-[#c89f5a] drop-shadow-[0_0_18px_rgba(241,208,132,0.25)] dark:text-[#d9aa56]">
-          <Lantern className="h-[118px] w-[64px]" />
-        </div>
-
-        <div className="pointer-events-none absolute left-[196px] top-[86px] text-[#c89f5a] opacity-85 drop-shadow-[0_0_14px_rgba(241,208,132,0.22)] dark:text-[#d9aa56]">
-          <Lantern className="h-[82px] w-[46px]" />
-        </div>
-
-        {/* stars in dark mode */}
-        <div className="pointer-events-none absolute inset-0 hidden dark:block">
-          <span className="absolute left-[20%] top-[135px] text-[#c89f43]">
-            ✦
-          </span>
-          <span className="absolute left-[64%] top-[110px] text-[#c89f43]">
-            ✦
-          </span>
-          <span className="absolute left-[72%] top-[180px] text-[#c89f43]">
-            ✦
-          </span>
-          <span className="absolute left-[78%] top-[125px] text-[#9cc7b3]">
-            ·
-          </span>
-        </div>
-
+{/* Тёмный фон */}
+<div
+  aria-hidden="true"
+  className="pointer-events-none absolute inset-0 hidden bg-cover bg-center bg-no-repeat dark:block"
+  style={{
+    backgroundImage: "url('/quran-dark-bg.png')",
+  }}
+/>
         {/* HERO CONTENT */}
         <section className="relative z-10 mx-auto flex max-w-[1120px] flex-col items-center px-6 pb-6 pt-10 text-center md:pt-10">
           <h1
