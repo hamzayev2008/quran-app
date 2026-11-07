@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Header from "@/components/Header";
 
 type FeatureType =
   | "quran"
@@ -27,7 +26,7 @@ const features: {
   {
     type: "tafsir",
     title: "Tafsir",
-    subtitle: "Oyatlarga tushuntirish",
+    subtitle: "Oyatlarni tushuntirish",
     href: "/tafsir",
     light: "bg-[#fff0df] border-[#f2dfc9] text-[#603615]",
     dark: "dark:bg-[#35331a] dark:border-[#766a2a] dark:text-white",
@@ -51,7 +50,7 @@ const features: {
   {
     type: "settings",
     title: "Sozlamalar",
-    subtitle: "Til, tema va boshqa",
+    subtitle: "Til, mavzu va boshqa",
     href: "/settings",
     light: "bg-[#e6f4fb] border-[#cee5ef] text-[#164f58]",
     dark: "dark:bg-[#10393a] dark:border-[#377071] dark:text-white",
@@ -175,109 +174,13 @@ function FeatureIcon({
   );
 }
 
-function Lantern({
-  className,
-}: {
-  className: string;
-}) {
-  return (
-    <svg
-      viewBox="0 0 60 110"
-      className={className}
-      fill="none"
-    >
-      <path
-        d="M30 0v22"
-        stroke="currentColor"
-        strokeWidth="1.4"
-      />
-
-      <path
-        d="M21 24h18l5 11-3 42H19l-3-42 5-11Z"
-        fill="currentColor"
-        opacity=".78"
-      />
-
-      <path
-        d="M23 34h14v33H23z"
-        fill="#fff4cf"
-        opacity=".65"
-      />
-
-      <path
-        d="M25 78h10l-5 10-5-10Z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-}
-
-function Mosque() {
-  return (
-    <svg
-      viewBox="0 0 900 320"
-      className="h-full w-full"
-      preserveAspectRatio="xMidYMax meet"
-      fill="currentColor"
-      aria-hidden="true"
-    >
-      {/* Ground */}
-      <rect x="0" y="270" width="900" height="50" />
-
-      {/* Left minaret */}
-      <rect x="95" y="110" width="22" height="160" rx="6" />
-      <path d="M89 112h34l-17-28-17 28Z" />
-      <rect x="101" y="82" width="10" height="18" rx="4" />
-
-      {/* Small left tower */}
-      <rect x="155" y="145" width="18" height="125" rx="6" />
-      <path d="M149 147h30l-15-22-15 22Z" />
-
-      {/* Main central mosque base */}
-      <rect x="235" y="188" width="300" height="82" rx="6" />
-
-      {/* Main dome */}
-      <path d="M300 188c0-62 46-103 85-103s85 41 85 103H300Z" />
-
-      {/* Left central dome */}
-      <path d="M245 188c0-40 30-68 57-68s57 28 57 68H245Z" />
-
-      {/* Right central dome */}
-      <path d="M411 188c0-40 30-68 57-68s57 28 57 68H411Z" />
-
-      {/* Door arch */}
-      <path d="M365 270v-54c0-21 16-37 35-37s35 16 35 37v54h-70Z" />
-
-      {/* Windows */}
-      <rect x="285" y="214" width="22" height="32" rx="11" />
-      <rect x="493" y="214" width="22" height="32" rx="11" />
-      <rect x="252" y="214" width="16" height="26" rx="8" />
-      <rect x="532" y="214" width="16" height="26" rx="8" />
-
-      {/* Right minarets */}
-      <rect x="590" y="118" width="24" height="152" rx="6" />
-      <path d="M583 120h38l-19-29-19 29Z" />
-      <rect x="598" y="90" width="9" height="17" rx="4" />
-
-      <rect x="666" y="98" width="26" height="172" rx="7" />
-      <path d="M658 100h42l-21-31-21 31Z" />
-      <rect x="674" y="67" width="10" height="20" rx="4" />
-
-      {/* Far right small domes */}
-      <rect x="730" y="210" width="110" height="60" rx="5" />
-      <path d="M735 210c8-34 36-55 50-55 14 0 42 21 50 55H735Z" />
-      <path d="M770 210c5-23 19-37 30-37s25 14 30 37H770Z" />
-    </svg>
-  );
-}
-
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#fdfcf8] text-[#12342b] dark:bg-[#062e28] dark:text-[#f5ead0]">
-      <Header />
       
-      <main className="relative mx-auto min-h-[calc(100vh-92px)] max-w-[1536px] overflow-hidden bg-[#fcfbf7] dark:bg-[#062f29]">
-        {/* Светлый фон */}
+      <main className="relative mx-auto flex min-h-[calc(100dvh-92px)] max-w-[1536px] flex-col overflow-hidden bg-[#fcfbf7] dark:bg-[#062f29]">
+
+{/* Светлый фон */}
 <div
   aria-hidden="true"
   className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat dark:hidden"
@@ -295,7 +198,7 @@ export default function Home() {
   }}
 />
         {/* HERO CONTENT */}
-        <section className="relative z-10 mx-auto flex max-w-[1120px] flex-col items-center px-6 pb-6 pt-10 text-center md:pt-10">
+        <section className="relative z-10 mx-auto flex w-full max-w-[1120px] flex-1 flex-col items-center px-6 pb-6 pt-8 text-center md:pt-9">
           <h1
             dir="rtl"
             className="font-serif text-[36px] font-semibold leading-[1.45] text-[#075c3d] md:text-[44px] dark:text-[#f2cb86]"
@@ -314,24 +217,8 @@ export default function Home() {
             <span className="h-px w-16 bg-current opacity-60" />
           </div>
 
-          {/* Verse */}
-          <p
-            dir="rtl"
-            className="mt-2 text-[25px] leading-relaxed text-[#174c3c] md:text-[29px] dark:text-[#f6ead2]"
-          >
-            «اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ»
-          </p>
-
-          <p className="mt-0 text-[15px] text-[#315d50] md:text-[16px] dark:text-[#e8e4d8]">
-            “O&apos;qig&apos;in Robbingizning nomi bilan, U yaratgandir.”
-          </p>
-
-          <p className="mt-1 text-[14px] text-[#315d50] dark:text-[#e8e4d8]">
-            (Alaq, 96:1)
-          </p>
-
           {/* Search */}
-          <div className="mt-3 flex h-[48px] w-full max-w-[660px] items-center rounded-full border border-[#d6ddd8] bg-white/95 p-1.5 pl-5 shadow-[0_5px_12px_rgba(0,0,0,0.10)] dark:border-[#41655b] dark:bg-[#092e29]/90">
+          <div className="mt-60 flex h-[48px] w-full max-w-[660px] items-center rounded-full border border-[#d6ddd8] bg-white/95 p-1.5 pl-5 shadow-[0_5px_12px_rgba(0,0,0,0.10)] dark:border-[#41655b] dark:bg-[#092e29]/90">
             <svg
               viewBox="0 0 24 24"
               fill="none"

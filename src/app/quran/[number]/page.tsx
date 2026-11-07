@@ -22,7 +22,7 @@ export default async function SurahPage({
     notFound();
     }
 
-    const { surah, verses, arabicVerses } = data;
+    const { surah, arabicVerses } = data;
 
   return (
     <main className="min-h-screen bg-[#f8f6ef] px-4 py-8 md:px-8">

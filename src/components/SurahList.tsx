@@ -18,11 +18,11 @@ export default function SurahList() {
           type="text"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Найти суру..."
-          className="w-full rounded-2xl border border-gray-200 bg-white px-5 py-4 pl-12 outline-none transition focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100"
+          placeholder="Surani qidirish..."
+          className="w-full rounded-2xl border border-border bg-surface px-5 py-4 pl-12 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15 text-foreground"
         />
 
-        <span className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400">
+        <span className="absolute left-5 top-1/2 -translate-y-1/2 text-muted">
           🔎
         </span>
       </div>
@@ -37,8 +37,8 @@ export default function SurahList() {
       </div>
 
       {filteredSurahs.length === 0 && (
-        <div className="mt-8 rounded-2xl bg-white p-8 text-center">
-          <p className="text-gray-500">
+        <div className="mt-8 rounded-2xl bg-surface p-8 text-center">
+          <p className="text-muted">
             Сура не найдена
           </p>
         </div>

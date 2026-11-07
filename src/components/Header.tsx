@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import LanguageSelector from "@/components/LanguageSelector";
+import { useAppLanguage } from "@/lib/use-app-language";
 
 type User = {
   sub: string;
@@ -281,8 +283,35 @@ function Logo() {
 }
 
 export default function Header() {
+  const navLabels = {
+  uz: [
+    "Bosh sahifa",
+    "Qur'on",
+    "Tafsir",
+    "Quran AI",
+    "Xatcho'plar",
+    "Sozlamalar",
+  ],
+  ru: [
+    "Главная",
+    "Коран",
+    "Тафсир",
+    "Quran AI",
+    "Закладки",
+    "Настройки",
+  ],
+  en: [
+    "Home",
+    "Quran",
+    "Tafsir",
+    "Quran AI",
+    "Bookmarks",
+    "Settings",
+  ],
+};
   const pathname = usePathname();
   const router = useRouter();
+  const { language } = useAppLanguage();
 
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -410,7 +439,7 @@ export default function Header() {
 
         {/* Navigation */}
         <nav className="mx-auto hidden h-full items-center gap-6 lg:flex xl:gap-10">
-          {navigation.map((item) => {
+          {navigation.map((item, index) => {
             const active =
               item.href === "/"
                 ? pathname === "/"
@@ -431,7 +460,7 @@ export default function Header() {
                   className="h-[27px] w-[27px]"
                 />
 
-                <span>{item.label}</span>
+                <span>{navLabels[language][index]}</span>
 
                 {active && (
                   <span className="absolute bottom-0 h-[3px] w-full max-w-[84px] rounded-full bg-[#087348] dark:bg-[#f2ca7c]" />
@@ -443,14 +472,7 @@ export default function Header() {
 
         {/* Controls */}
         <div className="ml-auto flex items-center gap-4">
-          <button
-            type="button"
-            className="hidden h-12 items-center gap-2 rounded-xl border border-[#e2e5e2] bg-white px-4 text-sm font-medium text-[#122725] shadow-sm md:flex dark:border-[#285149] dark:bg-[#082f29] dark:text-white"
-          >
-            <span className="text-lg">🇺🇿</span>
-            <span>UZ</span>
-            <span>⌄</span>
-          </button>
+          <LanguageSelector variant="compact" />
 
           {!loading && (
             <>

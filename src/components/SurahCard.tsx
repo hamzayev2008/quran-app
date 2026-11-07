@@ -1,31 +1,47 @@
+"use client";
+
+import Link from "next/link";
 import type { Surah } from "@/data/surahs";
+import { useAppLanguage } from "@/lib/use-app-language";
 
 type SurahCardProps = {
   surah: Surah;
 };
 
 export default function SurahCard({ surah }: SurahCardProps) {
+  const { language } = useAppLanguage();
   return (
-    <button className="w-full rounded-2xl border border-gray-200 bg-white p-5 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+    <Link
+      href={`/quran/${surah.number}`}
+      className="block rounded-2xl border border-border bg-surface p-5 text-foreground shadow-sm transition hover:-translate-y-1 hover:border-primary hover:shadow-md"
+    >
       <div className="flex items-center gap-4">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-50 font-semibold text-emerald-800">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-surface-soft font-semibold text-primary">
           {surah.number}
         </div>
 
-        <div className="flex-1">
-          <h3 className="font-semibold text-gray-900">
-            {surah.name.ru}
+        <div className="min-w-0 flex-1">
+          <h3 className="font-semibold">
+            {surah.name.uz}
           </h3>
 
-          <p className="mt-1 text-sm text-gray-500">
-            {surah.verses} аятов
+          <p className="mt-1 text-sm text-muted">
+            {surah.verses}{" "}
+            {language === "uz"
+              ? "oyat"
+              : language === "ru"
+                ? "аятов"
+                : "verses"}
           </p>
         </div>
 
-        <div className="text-xl font-semibold" dir="rtl">
+        <div
+          dir="rtl"
+          className="shrink-0 text-xl font-semibold text-primary"
+        >
           {surah.nameArabic}
         </div>
       </div>
-    </button>
+    </Link>
   );
 }
