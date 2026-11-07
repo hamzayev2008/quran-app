@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useAppLanguage } from "@/lib/use-app-language";
 
 type FeatureType =
   | "quran"
@@ -174,7 +177,99 @@ function FeatureIcon({
   );
 }
 
+const homeTranslations = {
+  uz: {
+    greeting: "Assalomu alaykum va rohmatullohi va barakatuh",
+    searchPlaceholder: "Sura, oyat yoki mavzuni qidiring...",
+    searchButton: "Qidirish",
+
+    cards: {
+      quran: {
+        title: "Qur'on",
+        subtitle: "O'qish va tinglash",
+      },
+      tafsir: {
+        title: "Tafsir",
+        subtitle: "Oyatlarni tushuntirish",
+      },
+      ai: {
+        title: "Quran AI",
+        subtitle: "Savollaringizga javob",
+      },
+      bookmark: {
+        title: "Xatcho'plar",
+        subtitle: "Saqlanganlar",
+      },
+      settings: {
+        title: "Sozlamalar",
+        subtitle: "Til, mavzu va boshqa",
+      },
+    },
+  },
+
+  ru: {
+    greeting: "Мир вам, милость Аллаха и Его благословение",
+    searchPlaceholder: "Поиск суры, аята или темы...",
+    searchButton: "Поиск",
+
+    cards: {
+      quran: {
+        title: "Коран",
+        subtitle: "Чтение и прослушивание",
+      },
+      tafsir: {
+        title: "Тафсир",
+        subtitle: "Толкование аятов",
+      },
+      ai: {
+        title: "Quran AI",
+        subtitle: "Ответы на ваши вопросы",
+      },
+      bookmark: {
+        title: "Закладки",
+        subtitle: "Сохранённое",
+      },
+      settings: {
+        title: "Настройки",
+        subtitle: "Язык, тема и другое",
+      },
+    },
+  },
+
+  en: {
+    greeting: "Peace be upon you, and Allah's mercy and blessings",
+    searchPlaceholder: "Search surah, verse or topic...",
+    searchButton: "Search",
+
+    cards: {
+      quran: {
+        title: "Quran",
+        subtitle: "Read and listen",
+      },
+      tafsir: {
+        title: "Tafsir",
+        subtitle: "Explanation of verses",
+      },
+      ai: {
+        title: "Quran AI",
+        subtitle: "Answers to your questions",
+      },
+      bookmark: {
+        title: "Bookmarks",
+        subtitle: "Saved items",
+      },
+      settings: {
+        title: "Settings",
+        subtitle: "Language, theme and more",
+      },
+    },
+  },
+};
+
 export default function Home() {
+  const { language } = useAppLanguage();
+  const t = homeTranslations[language];
+
   return (
     <div className="min-h-screen bg-[#fdfcf8] text-[#12342b] dark:bg-[#062e28] dark:text-[#f5ead0]">
       
@@ -241,7 +336,7 @@ export default function Home() {
 
             <input
               type="search"
-              placeholder="Sura, oyat yoki mavzuni qidiring..."
+              placeholder={t.searchPlaceholder}
               className="min-w-0 flex-1 bg-transparent px-4 text-[14px] text-[#273a35] outline-none placeholder:text-[#5e6b67] dark:text-white dark:placeholder:text-[#d6dfdc]"
             />
 
@@ -249,7 +344,7 @@ export default function Home() {
               type="button"
               className="h-full rounded-full bg-[#087355] px-8 text-[14px] font-semibold text-white dark:bg-[#f2cf8c] dark:text-[#15251f]"
             >
-              Qidirish
+              {t.searchButton}
             </button>
           </div>
         </section>
@@ -268,11 +363,11 @@ export default function Home() {
 
               <div className="min-w-0 flex-1 text-left">
                 <h2 className="text-[16px] font-bold">
-                  {feature.title}
+                  {t.cards[feature.type].title}
                 </h2>
 
                 <p className="mt-0.5 truncate text-[13px] opacity-85">
-                  {feature.subtitle}
+                  {t.cards[feature.type].subtitle}
                 </p>
               </div>
 

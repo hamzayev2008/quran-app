@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import VerseCard from "@/components/VerseCard";
 import { getSurahWithVerses } from "@/lib/quran";
 import LanguageSelector from "@/components/LanguageSelector";
-import SurahHeader from "@/components/Header";
+import SurahHeader from "@/components/SurahHeader";
 
 type SurahPageProps = {
   params: Promise<{

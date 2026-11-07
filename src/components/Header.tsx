@@ -282,8 +282,28 @@ function Logo() {
   );
 }
 
-export default function Header() {
-  const navLabels = {
+const profileTranslations = {
+  uz: {
+    profile: "Profilim",
+    bookmarks: "Xatcho'plarim",
+    settings: "Sozlamalar",
+    logout: "Chiqish",
+  },
+  ru: {
+    profile: "Мой профиль",
+    bookmarks: "Мои закладки",
+    settings: "Настройки",
+    logout: "Выйти",
+  },
+  en: {
+    profile: "My profile",
+    bookmarks: "My bookmarks",
+    settings: "Settings",
+    logout: "Log out",
+  },
+};
+
+const navLabels = {
   uz: [
     "Bosh sahifa",
     "Qur'on",
@@ -309,9 +329,12 @@ export default function Header() {
     "Settings",
   ],
 };
+
+export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const { language } = useAppLanguage();
+  const profileT = profileTranslations[language];
 
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -511,7 +534,7 @@ export default function Header() {
                             name="user"
                             className="h-5 w-5"
                           />
-                          Profilim
+                          {profileT.profile}
                         </Link>
 
                         <Link
@@ -525,7 +548,7 @@ export default function Header() {
                             name="bookmark"
                             className="h-5 w-5"
                           />
-                          Xatcho&apos;plarim
+                          {profileT.bookmarks}
                         </Link>
 
                         <Link
@@ -539,7 +562,7 @@ export default function Header() {
                             name="settings"
                             className="h-5 w-5"
                           />
-                          Sozlamalar
+                          {profileT.settings}
                         </Link>
                       </div>
 
@@ -553,7 +576,7 @@ export default function Header() {
                             name="logout"
                             className="h-5 w-5"
                           />
-                          Chiqish
+                          {profileT.logout}
                         </button>
                       </div>
                     </div>
@@ -564,7 +587,11 @@ export default function Header() {
                   href="/api/auth/login"
                   className="rounded-xl bg-[#075c3d] px-5 py-3 text-sm font-semibold text-white"
                 >
-                  Kirish
+                  {language === "uz"
+                    ? "Kirish"
+                    : language === "ru"
+                      ? "Войти"
+                      : "Log in"}
                 </a>
               )}
             </>
@@ -575,7 +602,13 @@ export default function Header() {
             type="button"
             onClick={toggleTheme}
             className="flex h-[52px] w-[52px] items-center justify-center rounded-full border border-[#e5e5e1] bg-white text-[27px] shadow-[0_5px_16px_rgba(0,0,0,0.08)] dark:border-[#b98c48] dark:bg-[#092f29]"
-            aria-label="Mavzuni o'zgartirish"
+            aria-label={
+              language === "uz"
+                ? "Mavzuni o'zgartirish"
+                : language === "ru"
+                  ? "Сменить тему"
+                  : "Change theme"
+            }
           >
             <span className="dark:hidden">
               ☀️
