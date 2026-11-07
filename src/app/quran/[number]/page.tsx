@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import VerseCard from "@/components/VerseCard";
 import { getSurahWithVerses } from "@/lib/quran";
 import LanguageSelector from "@/components/LanguageSelector";
+import SurahHeader from "@/components/Header";
 
 type SurahPageProps = {
   params: Promise<{
@@ -28,23 +29,7 @@ export default async function SurahPage({
     <main className="min-h-screen bg-[#f8f6ef] px-4 py-8 md:px-8">
       <div className="mx-auto max-w-4xl">
 
-        <div className="rounded-3xl bg-emerald-900 p-8 text-center text-white">
-          <p className="text-4xl" dir="rtl">
-            {surah.nameArabic}
-          </p>
-
-          <h1 className="mt-4 text-3xl font-bold">
-            {surah.name.ru}
-          </h1>
-
-          <p className="mt-2 text-emerald-200">
-            {surah.verses} аятов
-          </p>
-
-          <button className="mt-6 rounded-full bg-white px-6 py-3 font-semibold text-emerald-900 transition hover:bg-emerald-50">
-            ▶ Слушать
-          </button>
-        </div>
+        <SurahHeader surah={surah} />
 
         <div className="mt-6">
             <LanguageSelector />

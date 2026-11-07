@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import type { Surah } from "@/data/surahs";
 import { useAppLanguage } from "@/lib/use-app-language";
+import type { Surah } from "@/data/surahs";
 
 type SurahCardProps = {
   surah: Surah;
@@ -22,7 +22,7 @@ export default function SurahCard({ surah }: SurahCardProps) {
 
         <div className="min-w-0 flex-1">
           <h3 className="font-semibold">
-            {surah.name.uz}
+            {surah.name[language]}
           </h3>
 
           <p className="mt-1 text-sm text-muted">
