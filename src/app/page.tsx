@@ -302,7 +302,7 @@ export default function Home() {
           </h1>
 
           <p className="mt-1 font-serif text-[20px] text-[#346956] md:text-[23px] dark:text-[#f3e6c9]">
-            Assalomu alaykum va rohmatullohi va barakatuh
+            {t.greeting}
           </p>
 
           {/* Ornament */}
