@@ -20,7 +20,7 @@ export function loadQuranArabic(): QuranVerse[] {
 
   const lines = file
     .split(/\r?\n/)
-    .filter((line) => line.trim() !== "");
+    .filter((line) => /^\d+\|\d+\|/.test(line));
 
   return lines.map((line) => {
     const parts = line.split("|");
