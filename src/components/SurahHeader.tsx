@@ -1,7 +1,7 @@
 
 "use client";
 
-import type { Surah } from "@/data/surahs";
+import { revelationLabels, type Surah } from "@/data/surahs";
 import { useAppLanguage } from "@/lib/use-app-language";
 
 type Props = {
@@ -30,6 +30,10 @@ export default function SurahHeader({ surah }: Props) {
 
       <p className="mt-2 text-emerald-100 dark:text-[#e5c88c]">
         {surah.verses} {t.verses}
+      </p>
+
+      <p className="mt-1 text-sm text-emerald-100 dark:text-[#e5c88c]">
+        {revelationLabels[language][surah.revelationType]}
       </p>
 
       <button

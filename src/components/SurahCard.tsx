@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useAppLanguage } from "@/lib/use-app-language";
-import type { Surah } from "@/data/surahs";
+import { revelationLabels, type Surah } from "@/data/surahs";
 
 type SurahCardProps = {
   surah: Surah;
@@ -33,6 +33,11 @@ export default function SurahCard({ surah }: SurahCardProps) {
                 ? "аятов"
                 : "verses"}
           </p>
+
+          <p className="mt-1 text-xs text-muted">
+            {revelationLabels[language][surah.revelationType]}
+          </p>
+          
         </div>
 
         <div

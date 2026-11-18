@@ -1,6 +1,8 @@
 
 import metadata from "./surah-metadata.json";
 import { surahNamesRu, surahNamesUz } from "quran-meta/i18n";
+import { getSurahMeta } from "quran-meta/hafs";
+import type { Surah as QuranSurahNumber } from "quran-meta";
 
 export type Language = "uz" | "ru" | "en";
 
@@ -13,6 +15,22 @@ export type Surah = {
     en: string;
   };
   verses: number;
+  revelationType: "meccan" | "medinan";
+};
+
+export const revelationLabels = {
+  uz: {
+    meccan: "Makkiy",
+    medinan: "Madiniy",
+  },
+  ru: {
+    meccan: "Мекканская",
+    medinan: "Мединская",
+  },
+  en: {
+    meccan: "Meccan",
+    medinan: "Medinian",
+  },
 };
 
 // Uzbek Cyrillic -> Uzbek Latin
@@ -170,14 +188,22 @@ export const surahs: Surah[] = metadata.map((chapter) => {
     );
   }
 
+  const quranMeta = getSurahMeta(
+    chapter.number as QuranSurahNumber
+  );
+
   return {
     number: chapter.number,
     nameArabic: chapter.name,
     name: {
       uz: localNames[chapter.number]?.uz ?? toUzbekLatin(uzName),
       ru: localNames[chapter.number]?.ru ?? ruName,
-      en: chapter.englishName,
+      en: localNames[chapter.number]?.en ?? chapter.englishName,
     },
     verses: chapter.numberOfAyahs,
+
+    revelationType: quranMeta.isMeccan
+      ? "meccan"
+      : "medinan",
   };
 });
